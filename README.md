@@ -11,6 +11,6 @@ In specific E(Rp) is the expected return of the portfolio = weighted Expected re
 Expected return of each stock = average yearly return from 2017 onwards
 
 Assuming an Investor with 10.000 euros, the investor will buy 6.000 euros worth of government bonds (58 Bonds)
-while for the stocks we take remaining individual weight.
+while for the stocks the investor will take the remaining individual weights.
 
 In general the Portfolio has an expected yearly return of **8.81%** and a volatility of **6.9%**
