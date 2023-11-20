@@ -165,7 +165,7 @@ print(Return_Risky)
 
 
 '''
-Now I will calculate some specific characteristics of my portfolio such as overall expected returns and volatility, along with some key facts about our risk free positionn
+Now I will present some specific characteristics of my portfolio such as overall expected returns and volatility, along with some key facts about our risk free positionn
 '''
 
 number_of_bonds = Euros_allocated_riskfree/103  #103 is the current price of the Greek 10yr Bond 19/11/2023
