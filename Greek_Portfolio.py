@@ -132,8 +132,62 @@ risk_free_rate = 0.039    #19/11/2023 Greek 10yr government bond yield
 inv_cov_matrix = np.linalg.inv(cov_matrix) #this gives us the inverse of the covariance matrix
 excess_returns = returns.mean() - risk_free_rate
 weights = (1/gamma) *np.dot(inv_cov_matrix, excess_returns)
+weights /= np.sum(weights)
 
 
+Total_money = int(input("Give me how much money you are going to invest in total "))
+Percentage_allocated_in_riskfree = 0.6
+Euros_allocated_risky = Total_money*(1-Percentage_allocated_in_riskfree)
+Euros_allocated_riskfree = Total_money*Percentage_allocated_in_riskfree
+
+x = returns.mean()*252 #Yearly return
+y = returns.std()*(250**0.5) #Yearly volatility
+z = weights*Euros_allocated_risky #money for a 4000 Portfolio (10.000 * 0.4 which is the money you are going to allocate in risky assets - stocks)
+
+import math
+
+number_of_shares = []
+for i in range(9):
+    number_of_shares.append(math.floor(z[i] / companies.iloc[0][i]))
+
+sectors = ["Energy", "Energy","Entertainment", "Construction", "Retail", "Consumer Services", "Banking", "Construction", "Transportation"]
+
+'''
+I create a table called Return_Risk where I will display certain data for my risky portfolio such as allocated weights, Expected returns and more...
+'''
+
+Return_Risk = {"Sector":sectors,"Expected_Returns":x, "Volatility":y, "Optimal_Weights":weights, "Allocated_Money":z, "Number of Shares":number_of_shares}
+Return_Risky = pd.DataFrame(Return_Risk)
+
+print(Return_Risky)
+
+
+
+
+'''
+Now I will calculate some specific characteristics of my portfolio such as overall expected returns and volatility, along with some key facts about our risk free positionn
+'''
+
+number_of_bonds = Euros_allocated_riskfree/103  #103 is the current price of the Greek 10yr Bond 19/11/2023
+number_of_bonds = math.floor(number_of_bonds)
+print(f"The number of Bond that you have to buy is {number_of_bonds}")
+
+Expected_return_of_risky_portfolio = np.dot(x, weights.T)
+print(f"The expected return of the risky portfolio is {Expected_return_of_risky_portfolio*100}%")
+
+y1 = returns.cov()*250
+Expected_volatility_of_risky_portfolio = np.dot(weights, np.dot(y1, weights.T))**0.5
+print(f"The expected volatility of the risky portfolio is {Expected_volatility_of_risky_portfolio*100}%")
+
+
+Expected_return_of_riskfree_portfolio = 0.039
+Expected_volatility_of_riskfree_portfolio = 0 #Assuming no default and that you will hold the bond till maturity
+
+Expected_return_of_overall_portfolio = Percentage_allocated_in_riskfree*0.039 + (1-Percentage_allocated_in_riskfree)*Expected_return_of_risky_portfolio
+print( f" The expected return of the overall portfolio is {Expected_return_of_overall_portfolio*100}%")
+
+Expected_volatility_of_overall_portfolio = (1-Percentage_allocated_in_riskfree)*Expected_volatility_of_risky_portfolio
+print(f" The expected volatility of the portfolio is {Expected_volatility_of_overall_portfolio*100}%")
 
 
 
