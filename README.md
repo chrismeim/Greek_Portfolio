@@ -21,4 +21,4 @@ In general the Portfolio has an expected yearly return of **8.81%** and a volati
 
 ### How to use it
 
-To use the code, clone the repo and run `python bla bla bla ` and then ` bla bla `
+
